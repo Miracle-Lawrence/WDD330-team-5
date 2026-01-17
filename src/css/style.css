@@ -258,3 +258,27 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+footer {
+  text-align: center;
+  padding: 2em;
+  background-color: var(--light-grey);
+  margin-top: 2rem;
+}
+
+.social-icons {
+  margin-bottom: 1rem;
+}
+
+.social-icons a {
+  text-decoration: none;
+  color: var(--tertiary-color);
+  margin: 0 15px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.social-icons a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
