@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -171,9 +171,6 @@ button {
 /* Styles for product lists */
 .product-card {
   flex: 1 1 45%;
-  margin: 0.25em;
-  padding: 0.5em;
-  border: 1px solid var(--light-grey);
   max-width: 250px;
 }
 
@@ -260,4 +257,28 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+footer {
+  text-align: center;
+  padding: 2em;
+  background-color: var(--light-grey);
+  margin-top: 2rem;
+}
+
+.social-icons {
+  margin-bottom: 1rem;
+}
+
+.social-icons a {
+  text-decoration: none;
+  color: var(--tertiary-color);
+  margin: 0 15px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.social-icons a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
 }
