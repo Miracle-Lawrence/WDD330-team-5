@@ -1,26 +1,38 @@
-import { getLocalStorage, loadHeaderFooter, setLocalStorage } from "./utils.mjs";
+import {
+  getParam,
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter
+} from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
+import ProductDetails from "./ProductDetails.mjs";
 
-const dataSource = new ProductData("tents");
-
-// Load the dynamic header and footer for this page
+// Initialize dynamic Header and Footer components
 loadHeaderFooter();
 
-function addProductToCart(product) {
+// Set up the data source and retrieve the product ID from the URL
+const dataSource = new ProductData("tents");
+const productID = getParam("product");
+
+// Initialize product details logic and rendering
+const productDetail = new ProductDetails(productID, dataSource);
+productDetail.init();
+
+/**
+ * Adds a product object to the local storage cart.
+ * @param {Object} item - The product object to add.
+ */
+function addProductToCart(item) {
   const cartItems = getLocalStorage("so-cart") || [];
-  cartItems.push(product);
+  cartItems.push(item);
   setLocalStorage("so-cart", cartItems);
 }
 
-// add to cart button event handler
+// Event handler for the "Add to Cart" button click
 async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
+  const productItem = await dataSource.findProductById(e.target.dataset.id);
+  addProductToCart(productItem);
 }
 
-// Add event listeners to all add-to-cart buttons
-const buttons = document.querySelectorAll(".addToCart");
-
-buttons.forEach((button) => {
-  button.addEventListener("click", addToCartHandler);
-});
+// Attach event listener to the Add to Cart button if it exists
+document.getElementById("addToCart")?.addEventListener("click", addToCartHandler);

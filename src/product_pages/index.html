@@ -1,58 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sleep Outside | Product Pages</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <script src="../js/product.js" type="module"></script>
+  <title>Sleep Outside | Product Details</title>
+  <link rel="stylesheet" href="/src/css/style.css" />
+  <script src="/src/js/product.js" type="module"></script>
 </head>
-
 <body>
   <header class="divider" id="main-header"></header>
 
   <main class="divider">
-    <!-- Product 1 -->
     <section class="product-detail">
-      <h3>Marmot</h3>
-      <h2 class="divider">Ajax Tent - 3-Person, 3-Season</h2>
-      <img class="divider"
-        src="../images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg"
-        alt="Marmot Ajax tent" />
-      <p class="product-card__price">$199.99</p>
-      <p class="product__color">Pale Pumpkin/Terracotta</p>
-      <p class="product__description">
-        Get out and enjoy nature with Marmot&#39;s Ajax tent, featuring a
-        smart design with durable, waterproof construction and two doors for
-        easy access.
-      </p>
-      <div class="product-detail__add">
-        <button class="addToCart" data-id="880RR">Add to Cart</button>
-      </div>
-    </section>
+      <h3 id="productBrandName"></h3>
+      <h2 class="divider" id="productName"></h2>
 
-    <!-- Product 2 -->
-    <section class="product-detail">
-      <h3>Cedar Ridge</h3>
-      <h2 class="divider">Rimrock Tent - 2-Person, 3-Season</h2>
-      <img class="divider"
-        src="../images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg"
-        alt="Rimrock Tent - 2-Person, 3-Season" />
-      <p class="product-card__price">$69.99</p>
-      <p class="product__color">Rust/Clay</p>
-      <p class="product__description">
-        Lightweight and ready for adventure, this Cedar Ridge Rimrock tent
-        boasts a weather-ready design that includes a tub-style floor and
-        factory-sealed rain fly.
-      </p>
+      <img class="divider" id="productImage" src="" alt="" />
+
+      <p class="product-card__price" id="productFinalPrice"></p>
+      <p class="product__color" id="productColorName"></p>
+
+      <p class="product__description" id="productDescriptionHtmlSimple"></p>
+
       <div class="product-detail__add">
-        <button class="addToCart" data-id="344YJ">Add to Cart</button>
+        <button id="addToCart" data-id="">Add to Cart</button>
       </div>
     </section>
   </main>
 
   <footer id="main-footer"></footer>
 </body>
-
 </html>

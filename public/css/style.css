@@ -69,6 +69,7 @@ p {
   left: calc(50% - 60px);
   bottom: -15px;
   background-color: white;
+  z-index: 2;
 }
 
 .logo--square {
@@ -143,12 +144,15 @@ button {
   background-color: var(--dark-grey);
   color: var(--light-grey);
   opacity: 0.8;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .mission p {
   margin: 0 auto;
   width: 50%;
   text-align: center;
+  pointer-events: auto;
 }
 
 .products {
@@ -161,6 +165,9 @@ button {
   flex-flow: row wrap;
   list-style-type: none;
   justify-content: center;
+  position: relative;
+  z-index: 10;
+  background-color: white;
 }
 
 .product-list a {
