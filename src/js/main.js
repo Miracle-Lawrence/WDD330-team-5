@@ -1,24 +1,16 @@
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-<<<<<<< HEAD
-import { loadHeaderFooter } from "./utils.mjs"; // Import the helper function
+import { loadHeaderFooter } from "./utils.mjs";
 
-// Load the dynamic header and footer
+// 1. Initialize the dynamic header and footer
 loadHeaderFooter();
 
+// 2. Set up the data source for the product list
 const dataSource = new ProductData("tents");
+
+// 3. Select the element and initialize the list rendering
 const listElement = document.querySelector(".product-list");
-
-// Initialize the ProductList class to render the tents
 const myList = new ProductList("tents", dataSource, listElement);
+
+// 4. Render the list
 myList.init();
-=======
-
-const dataSource = new ProductData("tents");
-
-const element = document.querySelector(".product-list");
-
-const productList = new ProductList("Tents", dataSource, element);
-
-productList.init();
->>>>>>> bce5c6a5489794df969ca1a61d6c91ded7577bb9
