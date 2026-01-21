@@ -1,5 +1,8 @@
 import ProductData from "./ProductData.mjs";
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, loadHeaderFooter, setLocalStorage } from "./utils.mjs";
+
+// Load the dynamic header and footer for this page
+loadHeaderFooter();
 
 const dataSource = new ProductData("tents");
 
@@ -8,6 +11,7 @@ function addProductToCart(product) {
   cartItems.push(product);
   setLocalStorage("so-cart", cartItems);
 }
+
 // add to cart button event handler
 async function addToCartHandler(e) {
   const product = await dataSource.findProductById(e.target.dataset.id);
