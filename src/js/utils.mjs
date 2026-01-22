@@ -47,7 +47,6 @@ export function renderWithTemplate(template, parentElement, data, callback) {
 
 // Main function to load Header and Footer globally
 export async function loadHeaderFooter() {
-  // Using absolute paths ensures it works from root and subfolders
   const headerTemplate = await loadTemplate("/partials/header.html");
   const footerTemplate = await loadTemplate("/partials/footer.html");
 
