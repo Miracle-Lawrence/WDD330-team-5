@@ -24,3 +24,19 @@ const buttons = document.querySelectorAll(".addToCart");
 buttons.forEach((button) => {
   button.addEventListener("click", addToCartHandler);
 });
+
+// Display discount on product detail pages
+async function displayDiscounts() {
+  const discountElements = document.querySelectorAll(".product-discount");
+
+  for (const el of discountElements) {
+    const productId = el.dataset.id;
+    const product = await dataSource.findProductById(productId);
+
+    if (product?.Discount) {
+      el.textContent = `Discount: ${product.Discount}% off`;
+    }
+  }
+}
+
+displayDiscounts();

@@ -19,7 +19,8 @@
       "Name": "Marmot"
     },
     "ListPrice": 199.99,
-    "FinalPrice": 199.99
+    "FinalPrice": 199.99,
+    "Discount": 20 
   },
   {
     "Id": "985RF",
@@ -124,6 +125,7 @@
       "Name": "Cedar Ridge"
     },
     "ListPrice": 69.99,
-    "FinalPrice": 69.99
+    "FinalPrice": 69.99,
+    "Discount": 10
   }
 ]
