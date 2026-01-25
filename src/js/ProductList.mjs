@@ -26,6 +26,19 @@ export default class ProductList {
     }
     this.renderList(data);
   }
+
+  updateTitle() {
+    const titleElement = document.querySelector("#category-title");
+    if (titleElement && this.category) {
+      // Capitalizar la primera letra y reemplazar guiones con espacios
+      const formattedCategory = this.category
+        .split("-")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+
+      titleElement.textContent = `Top Products: ${formattedCategory}`;
+    }
+  }
   renderList(list) {
     this.listElement.innerHTML = "";
     renderListWithTemplate(productCardTemplate, this.listElement, list);
