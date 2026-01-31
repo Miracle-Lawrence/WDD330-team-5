@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sleep Outside | Product Pages</title>
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
   <script src="../js/product.js" type="module"></script>
 </head>
 
@@ -18,19 +18,28 @@
       <h3>Marmot</h3>
       <h2 class="divider">Ajax Tent - 3-Person, 3-Season</h2>
       <img class="divider"
-        src="../images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg"
+        src="/images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg"
         alt="Marmot Ajax tent" />
       <p class="product-card__price">$199.99</p>
       <p class="product-card__discount">20% OFF</p>
       <p class="product__color">Pale Pumpkin/Terracotta</p>
       <p class="product__description">
-        Get out and enjoy nature with Marmot&#39;s Ajax tent, featuring a
+        Get out and enjoy nature with Marmot's Ajax tent, featuring a
         smart design with durable, waterproof construction and two doors for
         easy access.
       </p>
       <div class="product-detail__add">
         <button class="addToCart" data-id="880RR">Add to Cart</button>
       </div>
+      <!-- Comments Section -->
+       <section class="comments">
+        <h3>Customer Comments</h3>
+        <ul class="commentList"></ul>
+        <form class="commentForm">
+          <input type="text" class="commentInput" placeholder="Write a comment..." required />
+          <button type="submit">Add Comment</button>
+        </form>
+      </section>
     </section>
 
     <!-- Product 2 -->
@@ -51,10 +60,61 @@
       <div class="product-detail__add">
         <button class="addToCart" data-id="344YJ">Add to Cart</button>
       </div>
+
+      <!-- Comments Section -->
+      <section class="comments">
+        <h3>Customer Comments</h3>
+        <ul class="commentList"></ul>
+        <form class="commentForm">
+          <input type="text" class="commentInput" placeholder="Write a comment..." required />
+          <button type="submit">Add Comment</button>
+        </form>
+      </section>
     </section>
   </main>
 
   <footer id="main-footer"></footer>
+
+   <!-- Comments Subsystem Script -->
+  <script>
+    function getComments(productId) {
+      const data = localStorage.getItem(`comments-${productId}`);
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveComment(productId, comment) {
+      const comments = getComments(productId);
+      comments.push(comment);
+      localStorage.setItem(`comments-${productId}`, JSON.stringify(comments));
+    }
+
+    function renderComments(section) {
+      const productId = section.dataset.productId;
+      const list = section.querySelector(".commentList");
+      list.innerHTML = "";
+
+      getComments(productId).forEach((comment) => {
+        const li = document.createElement("li");
+        li.textContent = comment;
+        list.appendChild(li);
+      });
+     }
+
+    document.querySelectorAll(".product-detail").forEach((section) => {
+      const productId = section.dataset.productId;
+      const form = section.querySelector(".commentForm");
+      const input = section.querySelector(".commentInput");
+
+      renderComments(section);
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        saveComment(productId, input.value);
+        input.value = "";
+        renderComments(section);
+      });
+    });
+    </script>
 </body>
 
 </html>
