@@ -3,23 +3,23 @@ import { loadHeaderFooter } from "./utils.mjs";
 
 loadHeaderFooter();
 
-const myCheckout = new CheckoutProcess("so-cart", ".checkout-summary");
+// Initialize the checkout process using the ID selector from the HTML
+const myCheckout = new CheckoutProcess("so-cart", "#checkout-summary");
 myCheckout.init();
 
-// Step 4: Listening for the submit button click
+// Listen for the submit button click
 document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
   e.preventDefault();
 
-  // 1. Get the form from the DOM
   const myForm = document.forms["checkout-form"];
 
-  // 2. Check validity
+  // Check form validation status
   const chk_status = myForm.checkValidity();
 
-  // 3. Report validity (shows the bubbles to the user)
+  // Display validation messages to the user
   myForm.reportValidity();
 
-  // 4. Only call checkout if valid
+  // Only proceed to checkout if the form is valid
   if (chk_status) {
     myCheckout.checkout();
   }

@@ -19,38 +19,51 @@
         <fieldset>
           <legend>Shipping Address</legend>
           <label for="fname">First Name</label>
-          <input type="text" name="fname" id="fname" required />
+          <input type="text" name="fname" id="fname" />
 
           <label for="lname">Last Name</label>
-          <input type="text" name="lname" id="lname" required />
+          <input type="text" name="lname" id="lname" />
 
           <label for="street">Street</label>
-          <input type="text" name="street" id="street" required />
+          <input type="text" name="street" id="street" />
 
           <label for="city">City</label>
-          <input type="text" name="city" id="city" required />
+          <input type="text" name="city" id="city" />
 
           <label for="state">State</label>
-          <input type="text" name="state" id="state" required />
+          <input type="text" name="state" id="state" />
 
           <label for="zip">Zip Code</label>
-          <input type="text" name="zip" id="zip" required />
+          <input type="text" name="zip" id="zip" />
         </fieldset>
 
         <fieldset>
           <legend>Payment</legend>
           <label for="cardNumber">Card Number</label>
-          <input type="text" name="cardNumber" id="cardNumber" required />
+          <input type="text" name="cardNumber" id="cardNumber" />
 
           <label for="expiration">Expiration Date</label>
-          <input type="text" name="expiration" id="expiration" placeholder="MM/YY" required />
+          <input type="text" name="expiration" id="expiration" placeholder="MM/YY" />
 
           <label for="code">Security Code</label>
-          <input type="text" name="code" id="code" required />
+          <input type="text" name="code" id="code" />
         </fieldset>
 
-        <div id="checkout-summary">
-        </div>
+        <fieldset id="checkout-summary">
+          <legend>Order Summary</legend>
+
+          <label>Item Subtotal (<span id="num-items"></span>)</label>
+          <input type="text" id="subtotal" readonly />
+
+          <label>Shipping Estimate</label>
+          <input type="text" id="shipping" readonly />
+
+          <label>Tax</label>
+          <input type="text" id="tax" readonly />
+
+          <label>Order Total</label>
+          <input type="text" id="orderTotal" readonly style="font-weight: bold;" />
+        </fieldset>
 
         <button type="submit" id="checkoutSubmit">Checkout</button>
       </form>
@@ -58,7 +71,7 @@
   </main>
 
   <footer id="main-footer"></footer>
-  <script src="../js/checkout.js" type="module"></script>
+  <script type="module" src="../js/checkout.js"></script>
 </body>
 
 </html>

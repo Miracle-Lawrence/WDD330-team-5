@@ -3,7 +3,7 @@ import { alertMessage, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 const services = new ExternalServices();
 
-// Helper function to convert form data to JSON
+// Helper function to convert form data to a JSON object
 function formDataToJSON(formElement) {
   const formData = new FormData(formElement),
     convertedJSON = {};
@@ -15,7 +15,7 @@ function formDataToJSON(formElement) {
   return convertedJSON;
 }
 
-// Helper function to format items for the API
+// Helper function to simplify item data for the API request
 function packageItems(items) {
   const simplifiedItems = items.map((item) => ({
     id: item.Id,
@@ -37,31 +37,39 @@ export default class CheckoutProcess {
     this.orderTotal = 0;
   }
 
-  // Method to initialize the process
+  // Initialize the process by getting data and calculating the initial summary
   init() {
     this.list = getLocalStorage(this.key);
     this.calculateItemSummary();
+    this.calculateOrderTotal();
   }
 
+  // Calculate the subtotal and display the number of items
   calculateItemSummary() {
     const summaryElement = document.querySelector(this.outputSelector);
     const itemNumElement = document.querySelector(this.outputSelector + " #num-items");
 
-    itemNumElement.innerText = this.list.length;
+    if (itemNumElement) {
+      itemNumElement.innerText = this.list.length;
+    }
 
-    // Calculate total of items
     const amounts = this.list.map((item) => item.FinalPrice);
     this.itemTotal = amounts.reduce((sum, item) => sum + item, 0);
 
-    summaryElement.querySelector("#subtotal").innerText = "$" + this.itemTotal.toFixed(2);
+    // Update the subtotal input value
+    const subtotalElement = summaryElement.querySelector("#subtotal");
+    if (subtotalElement) {
+      subtotalElement.value = "$" + this.itemTotal.toFixed(2);
+    }
   }
 
+  // Calculate shipping, tax, and the final order total
   calculateOrderTotal() {
-    // Shipping: $10 for first item, $2 for each additional
+    // Shipping: $10 for the first item, $2 for each additional item
     this.shipping = 10 + (this.list.length - 1) * 2;
-    // Tax: 6%
+    // Tax: 6% of the item total
     this.tax = (this.itemTotal * 0.06).toFixed(2);
-    // Total
+    // Final total calculation
     this.orderTotal = (
       parseFloat(this.itemTotal) +
       parseFloat(this.shipping) +
@@ -71,18 +79,25 @@ export default class CheckoutProcess {
     this.displayOrderTotals();
   }
 
+  // Display the final calculated values in the summary inputs
   displayOrderTotals() {
     const summaryElement = document.querySelector(this.outputSelector);
-    summaryElement.querySelector("#shipping").innerText = "$" + this.shipping;
-    summaryElement.querySelector("#tax").innerText = "$" + this.tax;
-    summaryElement.querySelector("#orderTotal").innerText = "$" + this.orderTotal;
+
+    const shippingElem = summaryElement.querySelector("#shipping");
+    const taxElem = summaryElement.querySelector("#tax");
+    const orderTotalElem = summaryElement.querySelector("#orderTotal");
+
+    if (shippingElem) shippingElem.value = "$" + this.shipping.toFixed(2);
+    if (taxElem) taxElem.value = "$" + this.tax;
+    if (orderTotalElem) orderTotalElem.value = "$" + this.orderTotal;
   }
 
+  // Process the final checkout request
   async checkout() {
     const formElement = document.forms["checkout-form"];
     const json = formDataToJSON(formElement);
 
-    // Add extra needed data
+    // Append required order data to the JSON object
     json.orderDate = new Date();
     json.orderTotal = this.orderTotal;
     json.tax = this.tax;
@@ -93,26 +108,19 @@ export default class CheckoutProcess {
       const res = await services.checkout(json);
       // eslint-disable-next-line no-console
       console.log(res);
-
-      // Success logic: clear cart and redirect
+      // Success: clear the cart and redirect the user
       setLocalStorage(this.key, []);
       location.assign("/checkout/checkedout.html");
-
     } catch (err) {
-      // Step 5: Handling the error from the server
-
-      // 1. Clear existing alerts
+      // Error handling: clear previous alerts and display new server messages
       const existingAlerts = document.querySelectorAll(".alert");
       existingAlerts.forEach((alert) => alert.remove());
 
-      // 2. Resolve the error messages
       const errorResponse = await err.message;
 
-      // 3. Display each alert using the utility function
       for (let key in errorResponse) {
         alertMessage(errorResponse[key]);
       }
-
       // eslint-disable-next-line no-console
       console.log(err);
     }
