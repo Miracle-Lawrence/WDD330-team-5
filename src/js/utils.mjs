@@ -73,3 +73,27 @@ export function getParam(param) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
+
+// Add this to the end of utils.mjs
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  
+  // Create the alert content with a close button (X)
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+  
+  // Add an event listener to the "X" to remove the alert when clicked
+  alert.addEventListener("click", function (e) {
+    if (e.target.tagName === "SPAN") {
+      alert.remove();
+    }
+  });
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  // If scroll is true, scroll to the top of the page
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
